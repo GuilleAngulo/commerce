@@ -19,12 +19,12 @@ import rangeMap from '@lib/range-map'
 import getSlug from '@lib/get-slug'
 
 // TODO (bc) : Remove or standarize this.
-const SORT = Object.entries({
+const SORT = {
   'latest-desc': 'Latest arrivals',
   'trending-desc': 'Trending',
   'price-asc': 'Price: Low to high',
   'price-desc': 'Price: High to low',
-})
+}
 
 import {
   filterQuery,
@@ -384,7 +384,10 @@ export default function Search({
                   aria-haspopup="true"
                   aria-expanded="true"
                 >
-                  {sort ? `Sort: ${sort}` : 'Relevance'}
+                  {sort &&
+                  Object.prototype.hasOwnProperty.call(SORT, sort as string)
+                    ? SORT[sort as keyof typeof SORT]
+                    : 'Relevance'}
                   <svg
                     className="-mr-1 ml-2 h-5 w-5"
                     xmlns="http://www.w3.org/2000/svg"
@@ -431,7 +434,7 @@ export default function Search({
                         </a>
                       </Link>
                     </li>
-                    {SORT.map(([key, text]) => (
+                    {Object.entries(SORT).map(([key, text]) => (
                       <li
                         key={key}
                         className={cn(
