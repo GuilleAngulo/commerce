@@ -1,7 +1,5 @@
 {
-  "provider": "bigcommerce",
   "features": {
-    "wishlist": true,
-    "customCheckout": false
+    "wishlist": true
   }
 }
